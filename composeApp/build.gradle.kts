@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.googleServices)
+    alias(libs.plugins.crashlytics)
 }
 
 kotlin {
@@ -42,6 +44,8 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
+            implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.firebase.crashlytics)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -59,6 +63,7 @@ kotlin {
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(compose.materialIconsExtended)
+//            implementation(libs.crashkios.crashlytics)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

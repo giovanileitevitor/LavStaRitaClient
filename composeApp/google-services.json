@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "997465879878",
+    "project_id": "lavanderia-cliente-c56a9",
+    "storage_bucket": "lavanderia-cliente-c56a9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997465879878:android:bc676bcb8d2d7854fb6147",
+        "android_client_info": {
+          "package_name": "br.lavstaritaoclient"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMMt_UM7-j0fUldeNM2DPB4uiBVvZrd0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
