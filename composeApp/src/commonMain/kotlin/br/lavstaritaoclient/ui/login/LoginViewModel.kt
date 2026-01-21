@@ -35,4 +35,8 @@ class LoginViewModel(private val httpClient: HttpClient) : ViewModel() {
             }
         }
     }
+    
+    fun simulateFail(){
+        throw RuntimeException("Simulated Crash for Firebase Crashlytics")
+    }
 }

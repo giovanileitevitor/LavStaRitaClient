@@ -28,16 +28,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.lavstaritaoclient.APP_VERSION
 import br.lavstaritaoclient.ui.login.states.LoginState
 import lavstaritaclient.composeapp.generated.resources.Res
 import lavstaritaclient.composeapp.generated.resources.img_lav
 import org.jetbrains.compose.resources.painterResource
 
-
 @Composable
 fun LoginScreen(viewModel: LoginViewModel) {
     val azulEscuro = Color(0xFF2B4678)
-
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -81,7 +80,10 @@ fun LoginScreen(viewModel: LoginViewModel) {
             CircularProgressIndicator(color = azulEscuro)
         } else {
             Button(
-                onClick = { viewModel.checkCPForCNPJ() },
+                onClick = {
+                    //viewModel.checkCPForCNPJ()
+                    viewModel.simulateFail()
+                  },
                 modifier = Modifier.fillMaxWidth(0.85f).height(50.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = azulEscuro),
                 shape = RoundedCornerShape(8.dp)
@@ -111,6 +113,6 @@ fun LoginScreen(viewModel: LoginViewModel) {
             Text("IG", color = azulEscuro, fontWeight = FontWeight.Bold)
         }
 
-        Text("Versão: 1.0.0", color = Color.Gray, fontSize = 12.sp, modifier = Modifier.padding(bottom = 16.dp))
+        Text("Versão: $APP_VERSION", color = Color.Gray, fontSize = 12.sp, modifier = Modifier.padding(bottom = 16.dp))
     }
 }
