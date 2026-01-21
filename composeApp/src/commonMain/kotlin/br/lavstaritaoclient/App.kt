@@ -12,7 +12,7 @@ import io.ktor.serialization.kotlinx.json.json
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun App() {
     MaterialTheme {
         val httpClient = remember {
@@ -23,7 +23,6 @@ fun App() {
             }
         }
 
-        // Criando o ViewModel passando o httpClient necessário
         val viewModel = viewModel { LoginViewModel(httpClient) }
 
         LoginScreen(viewModel = viewModel)
