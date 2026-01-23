@@ -63,6 +63,7 @@ kotlin {
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(compose.materialIconsExtended)
+            implementation(libs.androidx.datastore.preferences)
 //            implementation(libs.crashkios.crashlytics)
         }
         commonTest.dependencies {

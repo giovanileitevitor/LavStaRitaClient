@@ -5,13 +5,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.lavstaritaoclient.data.localRepository.LocalRepository
+import br.lavstaritaoclient.data.remoteRepository.RemoteRepositoryImpl
 import br.lavstaritaoclient.ui.login.states.LoginState
 import kotlinx.coroutines.launch
-import io.ktor.client.HttpClient
-import io.ktor.client.request.get
-import io.ktor.client.statement.HttpResponse
 
-class LoginViewModel(private val httpClient: HttpClient) : ViewModel() {
+class LoginViewModel(
+    private val repository: RemoteRepositoryImpl,
+    private val localRepository: LocalRepository
+) : ViewModel() {
 
     var cpf by mutableStateOf("")
     var uiState by mutableStateOf<LoginState>(LoginState.Idle)
@@ -21,21 +23,22 @@ class LoginViewModel(private val httpClient: HttpClient) : ViewModel() {
 
         viewModelScope.launch {
             uiState = LoginState.Loading
-            try {
-                // Exemplo de GET: substitua pela sua URL real
-                val response: HttpResponse = httpClient.get("https://sua-api.com/clientes/$cpf")
-
-                if (response.status.value == 200) {
-                    uiState = LoginState.Success("Bem-vindo!")
-                } else {
-                    uiState = LoginState.Error("Usuário não encontrado")
+            repository.checkDocumentExists(cpf).fold(
+                onSuccess = { client ->
+                    if (client != null) {
+                        localRepository.saveUserData(client.name, cpf)
+                        uiState = LoginState.Success("Bem-vindo, ${client.name} !")
+                    } else {
+                        uiState = LoginState.Error("Usuário não encontrado")
+                    }
+                },
+                onFailure = { error ->
+                    uiState = LoginState.Error("${error.message}")
                 }
-            } catch (e: Exception) {
-                uiState = LoginState.Error("Erro de conexão: ${e.message}")
-            }
+            )
         }
     }
-    
+
     fun simulateFail(){
         throw RuntimeException("Simulated Crash for Firebase Crashlytics")
     }
